@@ -5,9 +5,6 @@ whatever Windows is playing (YouTube Music, Spotify, a browser tab, a local play
 paints your desktop with it. 36 visualizers, from faithful Winamp scopes to MilkDrop-style feedback
 tunnels to fragment-shader fluid.
 
-There is no login, no API key, and no browser scraping. Lively hands the wallpaper a spectrum array
-and the current Windows media session; everything else happens locally.
-
 ![JuqBawx](thumbnail.png)
 
 ## Install
