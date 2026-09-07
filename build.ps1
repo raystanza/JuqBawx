@@ -15,6 +15,10 @@ if ([string]::IsNullOrWhiteSpace($OutputPath)) {
 if (-not $SkipTests) {
     Push-Location $PSScriptRoot
     try {
+        Write-Host "Running the behavior tests..."
+        & node --test "tests/*.test.cjs"
+        if ($LASTEXITCODE -ne 0) { throw "Behavior tests failed" }
+
         Write-Host "Verifying LivelyProperties against the visualizer registry..."
         & node "tools/sync-properties.cjs" --check
         if ($LASTEXITCODE -ne 0) { throw "LivelyProperties.json is out of sync with the registry" }

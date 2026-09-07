@@ -1,0 +1,96 @@
+name: Release
+
+# Pull requests and main pushes run the checks. Version tags also package and
+# publish; manual runs test and upload a ZIP without publishing a release.
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Behavior and rendering checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      # The suites have no dependencies, but pin the runtime anyway so a runner
+      # image bump can't quietly change what they run under.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Run behavior tests
+        run: node --test "tests/*.test.cjs"
+
+      - name: Check the Lively metadata
+        run: node tools/sync-properties.cjs --check
+
+      - name: Run the Canvas smoke test
+        run: node smoke-test.cjs
+
+      - name: Run the WebGL smoke test
+        env:
+          MOCK_WEBGL: "1"
+        run: node smoke-test.cjs
+
+  release:
+    name: Package and publish
+    needs: test
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      # build.ps1 names the ZIP from the version file, not the tag, so a tag
+      # pushed without a version bump would ship a file labelled with the old
+      # number. Catch that here instead of on the release page.
+      - name: Check the version file matches the tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          tagged="${GITHUB_REF_NAME#v}"
+          declared="$(tr -d '[:space:]' < version)"
+          if [ "$tagged" != "$declared" ]; then
+            echo "Tag $GITHUB_REF_NAME expects version '$tagged', but the version file says '$declared'." >&2
+            echo "Bump 'version' to match the tag, or delete the tag and push it again." >&2
+            exit 1
+          fi
+          echo "Version $declared matches tag $GITHUB_REF_NAME."
+
+      # The required test job already ran every check. pwsh 7 ships on Ubuntu.
+      - name: Build the wallpaper package
+        shell: pwsh
+        run: ./build.ps1 -SkipTests
+
+      - name: Upload the ZIP as a run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JuqBawx-${{ github.ref_name }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+      - name: Publish the GitHub release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --generate-notes

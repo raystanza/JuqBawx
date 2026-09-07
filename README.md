@@ -121,13 +121,36 @@ From the repository root:
 .\build.ps1
 ```
 
-This checks `LivelyProperties.json` against the visualizer registry, runs both smoke tests, then
-writes `dist/JuqBawx-Lively-Visualizer-v<version>.zip`, taking the version from the `version` file.
+This runs the behavior tests, checks `LivelyProperties.json` against the visualizer registry, runs
+both smoke tests, then writes `dist/JuqBawx-Lively-Visualizer-v<version>.zip`, taking the version from
+the `version` file.
 Pass `-SkipTests` to skip the checks, or `-OutputPath` to put the ZIP somewhere else:
 
 ```powershell
 .\build.ps1 -OutputPath .\dist\JuqBawx.zip
 ```
+
+## Testing and releases
+
+Use Node.js 24 (no npm install or test dependencies required):
+
+```powershell
+node --test "tests/*.test.cjs"
+node tools/sync-properties.cjs --check
+node smoke-test.cjs
+$env:MOCK_WEBGL = "1"; node smoke-test.cjs; Remove-Item Env:\MOCK_WEBGL
+```
+
+The focused tests cover audio input and resampling, profile recovery and delayed saves, GPU
+failure and recovery, and playback pacing and category cycling. Each test loads fresh app state
+from `index.html`; timer-driven tests advance a mock clock instead of sleeping. The existing smoke
+tests cover every visualizer, metadata/dropdown consistency, and rendering budgets. Canvas and
+WebGL are mocked, so these checks do not verify pixels or real shader compilation; preview visual
+changes in Lively as well.
+
+The release workflow runs these checks on pull requests, pushes to `main`, version tags, and manual
+runs. Packaging requires a successful test job. A `v<version>` tag must match the `version` file
+before publishing a GitHub release; a manual run only uploads the ZIP as an Actions artifact.
 
 ## Project layout
 
@@ -152,8 +175,9 @@ src/
   visualizers/        one file per visualizer
   boot.js             startup wiring, loads last
 tools/
-  headless.cjs        mocked-DOM loader shared by the test and the sync tool
+  headless.cjs        isolated mocked-DOM loader shared by tests and the sync tool
   sync-properties.cjs regenerates the Lively dropdowns from the registry
+tests/                focused behavior tests using Node's built-in test runner
 smoke-test.cjs        renders every visualizer under Node
 ```
 
@@ -202,6 +226,7 @@ after the core scripts and before `src/boot.js`.
 
 ```powershell
 node tools/sync-properties.cjs
+node --test "tests/*.test.cjs"
 node smoke-test.cjs
 $env:MOCK_WEBGL = "1"; node smoke-test.cjs; Remove-Item Env:\MOCK_WEBGL
 ```

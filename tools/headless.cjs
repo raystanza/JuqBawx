@@ -1,13 +1,14 @@
 'use strict';
 // Loads the wallpaper under Node with a mocked DOM, using index.html's own
 // script tags as the manifest so the test and the browser load the same files
-// in the same order. Shared by smoke-test.cjs and sync-properties.cjs.
+// in the same order. Each harness has its own browser globals and module state.
 const fs = require('fs');
 const path = require('path');
+const vm = require('node:vm');
 
 const ROOT = path.join(__dirname, '..');
 
-function createHarness({ mockWebGl = false } = {}) {
+function createHarness({ mockWebGl = false, storage = new Map(), performance = globalThis.performance } = {}) {
   const counters = { gpuDrawCalls: 0, gpuProgramsCreated: 0, cpuShaderUploads: 0 };
   const canvasCalls = Object.create(null);
   const countedContextMethods = new Set(['arc', 'drawImage', 'fill', 'fillRect', 'fillText', 'rect', 'stroke']);
@@ -87,9 +88,12 @@ function createHarness({ mockWebGl = false } = {}) {
   function element() {
     const style = { setProperty(name, value) { this[name] = value; } };
     const classes = new Set();
+    const events = new Map();
     return {
       style,
       classes,
+      addEventListener: (name, callback) => events.set(name, callback),
+      dispatchEvent: event => events.get(event.type)?.(event),
       classList: {
         toggle(name, force) {
           const on = force === undefined ? !classes.has(name) : !!force;
@@ -130,25 +134,31 @@ function createHarness({ mockWebGl = false } = {}) {
   });
 
   const frames = [];
-  const storage = new Map();
   const listeners = new Map();
 
-  global.window = global;
-  global.innerWidth = 1280;
-  global.innerHeight = 720;
-  global.devicePixelRatio = 1;
-  global.document = {
-    body: element(),
-    getElementById: id => elements.get(id),
-    createElement: () => element(),
-    addEventListener: (name, callback) => listeners.set(`document:${name}`, callback)
+  const window = {
+    console,
+    performance,
+    setTimeout,
+    clearTimeout,
+    innerWidth: 1280,
+    innerHeight: 720,
+    devicePixelRatio: 1,
+    document: {
+      body: element(),
+      getElementById: id => elements.get(id),
+      createElement: () => element(),
+      addEventListener: (name, callback) => listeners.set(`document:${name}`, callback)
+    },
+    localStorage: {
+      getItem: key => storage.get(key) || null,
+      setItem: (key, value) => storage.set(key, value)
+    },
+    addEventListener: (name, callback) => listeners.set(name, callback),
+    requestAnimationFrame: callback => { frames.push(callback); return frames.length; }
   };
-  global.localStorage = {
-    getItem: key => storage.get(key) || null,
-    setItem: (key, value) => storage.set(key, value)
-  };
-  global.addEventListener = (name, callback) => listeners.set(name, callback);
-  global.requestAnimationFrame = callback => { frames.push(callback); return frames.length; };
+  window.window = window;
+  const browser = vm.createContext(window);
 
   const indexHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   const scripts = [...indexHtml.matchAll(/<script\s+src="([^"]+)"><\/script>/g)].map(match => match[1]);
@@ -156,7 +166,7 @@ function createHarness({ mockWebGl = false } = {}) {
   for (const src of scripts) {
     const file = path.join(ROOT, src);
     if (!fs.existsSync(file)) throw new Error(`index.html references a missing file: ${src}`);
-    require(file);
+    vm.runInContext(fs.readFileSync(file, 'utf8'), browser, { filename: file });
   }
 
   return {
@@ -168,7 +178,9 @@ function createHarness({ mockWebGl = false } = {}) {
     counters,
     canvasCalls,
     countedContextMethods,
-    JuqBawx: global.JuqBawx
+    window,
+    webGlContext,
+    JuqBawx: window.JuqBawx
   };
 }
 

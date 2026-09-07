@@ -4,7 +4,7 @@ const { createHarness } = require('./tools/headless.cjs');
 
 const mockWebGl = process.env.MOCK_WEBGL === '1';
 const harness = createHarness({ mockWebGl });
-const { elements, listeners, frames, counters, canvasCalls, countedContextMethods, scripts, JuqBawx } = harness;
+const { window, elements, listeners, frames, counters, canvasCalls, countedContextMethods, scripts, JuqBawx } = harness;
 const { registry, internal } = JuqBawx;
 const properties = require('./LivelyProperties.json');
 
@@ -182,7 +182,7 @@ async function verifyProfiles() {
   window.livelyPropertyListener('glow', 88);
   internal.profiles.saveThemeProfile(1);
 
-  const stored = JSON.parse(global.localStorage.getItem('jukebox-theme-profiles-v3'));
+  const stored = JSON.parse(window.localStorage.getItem('jukebox-theme-profiles-v3'));
   if (stored.version !== 3) throw new Error('Profiles were not written with the v3 schema');
   if (!stored.profiles[firstId] || !stored.profiles[secondId]) {
     throw new Error('Profiles were not keyed by visualizer id');
@@ -199,7 +199,7 @@ async function verifyProfiles() {
   if (Math.abs(settings.glow - 0.88) > 1e-9) throw new Error('Each visualizer did not keep its own profile');
 
   internal.profiles.copyCurrentThemeProfileToAll();
-  const copied = JSON.parse(global.localStorage.getItem('jukebox-theme-profiles-v3'));
+  const copied = JSON.parse(window.localStorage.getItem('jukebox-theme-profiles-v3'));
   if (Object.keys(copied.profiles).length !== registry.length) {
     throw new Error('Copy-to-all did not cover every visualizer');
   }
