@@ -1,0 +1,23 @@
+# Only format Markdown, hand-maintained JSON, and the Prettier configuration.
+# Keep directories traversable so documentation in subdirectories is included.
+# JavaScript (.js and .cjs), HTML, CSS, PowerShell, and workflows stay hand-formatted.
+*
+!*/
+!*.md
+!*.json
+!.prettierrc
+
+# tools/sync-properties.cjs writes these with JSON.stringify(..., null, 2).
+# Its --check compares exact text; Prettier can compact arrays differently.
+/LivelyProperties.json
+/LivelyInfo.json
+
+# Build output, local development files, dependencies, and workspace metadata.
+/dist/
+/dev/
+node_modules/
+/.git/
+/.agents/
+/.codex/
+/.idea/
+/.vscode/

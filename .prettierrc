@@ -1,0 +1,9 @@
+{
+  "proseWrap": "preserve",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "none",
+  "endOfLine": "lf",
+  "embeddedLanguageFormatting": "off"
+}
