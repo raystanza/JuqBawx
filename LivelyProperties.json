@@ -1,0 +1,402 @@
+{
+  "category": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Visualizer category",
+    "items": [
+      "All Visualizers",
+      "Modern / Neon",
+      "Winamp Classics",
+      "MilkDrop Psychedelic",
+      "Retro Hardware",
+      "Ambient / Chill",
+      "Shader Lab",
+      "Procedural Worlds",
+      "Album Atmospheres",
+      "Interactive"
+    ]
+  },
+  "visualizer": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Sub-theme / Visualizer",
+    "items": [
+      "Neon Spectrum",
+      "Mirrored Horizon",
+      "Radial Bloom",
+      "Particle Constellation",
+      "Aurora Wave",
+      "Winamp Classic Spectrum",
+      "Winamp Classic Oscilloscope",
+      "Plasma Tunnel (Winamp-era)",
+      "AVS Laser Grid (Winamp-era)",
+      "Retro VU Towers",
+      "Polar Oscilloscope",
+      "Starlight Rings",
+      "Prism Scope",
+      "Analog Needle Deck",
+      "Ribbon Helix",
+      "Skyline Pulse",
+      "Orbiting Orbs",
+      "Kaleidoscope Bloom",
+      "Feedback Tunnel",
+      "Dot Matrix Analyzer",
+      "Wireframe Reactor",
+      "CRT Scope Deluxe",
+      "MilkDrop Petals",
+      "Winamp Tri-Band Analyzer",
+      "Winamp Dot Scope",
+      "MilkDrop Spiral Feedback",
+      "MilkDrop Fractal Flower",
+      "Cassette Deck",
+      "Galactic Equalizer",
+      "Liquid Chrome",
+      "Spectral Terrain",
+      "Album Mosaic",
+      "Gravity Garden",
+      "Bioluminescent Tide",
+      "Polyhedral Bloom",
+      "Now Playing Dossier"
+    ]
+  },
+  "presetPack": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Preset pack",
+    "items": [
+      "Custom",
+      "Retro",
+      "Chill",
+      "Aggressive",
+      "Psychedelic",
+      "Winamp Classics Pack",
+      "MilkDrop Psychedelic Pack",
+      "Shader Lab Pack",
+      "Procedural Worlds Pack",
+      "Album Atmospheres Pack",
+      "Ambient Rooms Pack",
+      "Interactive Playground Pack"
+    ]
+  },
+  "themeProfilesLabel": {
+    "type": "label",
+    "value": "SUB-THEME PROFILES"
+  },
+  "perThemeSettings": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Remember customization per sub-theme",
+    "help": "Automatically saves visual, color, and audio-response controls for each sub-theme. Lively's web disk cache is required to keep browser profiles across wallpaper restarts."
+  },
+  "resetThemeSettings": {
+    "type": "button",
+    "value": "Reset current sub-theme",
+    "text": "Reset current sub-theme profile"
+  },
+  "copyThemeSettings": {
+    "type": "button",
+    "value": "Copy current to all",
+    "text": "Copy current profile to every sub-theme"
+  },
+  "motionLabel": {
+    "type": "label",
+    "value": "MOTION & IMAGE"
+  },
+  "sensitivity": {
+    "type": "slider",
+    "value": 135,
+    "min": 30,
+    "max": 300,
+    "tick": 5,
+    "text": "Audio sensitivity"
+  },
+  "bassBoost": {
+    "type": "slider",
+    "value": 120,
+    "min": 50,
+    "max": 220,
+    "tick": 5,
+    "text": "Bass boost"
+  },
+  "beatPulse": {
+    "type": "slider",
+    "value": 100,
+    "min": 0,
+    "max": 200,
+    "tick": 5,
+    "text": "Beat pulse"
+  },
+  "smoothing": {
+    "type": "slider",
+    "value": 72,
+    "min": 0,
+    "max": 95,
+    "tick": 1,
+    "text": "Motion smoothing"
+  },
+  "motionSpeed": {
+    "type": "slider",
+    "value": 100,
+    "min": 20,
+    "max": 250,
+    "tick": 5,
+    "text": "Animation speed"
+  },
+  "colorSaturation": {
+    "type": "slider",
+    "value": 100,
+    "min": 0,
+    "max": 200,
+    "tick": 5,
+    "text": "Color saturation"
+  },
+  "visualContrast": {
+    "type": "slider",
+    "value": 100,
+    "min": 50,
+    "max": 150,
+    "tick": 5,
+    "text": "Visual contrast"
+  },
+  "glow": {
+    "type": "slider",
+    "value": 72,
+    "min": 0,
+    "max": 100,
+    "tick": 2,
+    "text": "Glow / bloom"
+  },
+  "trail": {
+    "type": "slider",
+    "value": 26,
+    "min": 0,
+    "max": 92,
+    "tick": 2,
+    "text": "Trail amount"
+  },
+  "barCount": {
+    "type": "slider",
+    "value": 64,
+    "min": 16,
+    "max": 128,
+    "tick": 8,
+    "text": "Spectrum detail"
+  },
+  "colorMode": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Color mode",
+    "items": [
+      "Custom Duo",
+      "Rainbow Shift",
+      "Retro Phosphor",
+      "Sunset Pulse",
+      "Icefire",
+      "Album Palette"
+    ]
+  },
+  "accent": {
+    "type": "color",
+    "value": "#18e0ff",
+    "text": "Primary color"
+  },
+  "secondary": {
+    "type": "color",
+    "value": "#b031ff",
+    "text": "Secondary color"
+  },
+  "background": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Background",
+    "items": [
+      "Near black",
+      "Deep navy",
+      "Deep wine",
+      "Deep violet",
+      "Pure black",
+      "Graphite",
+      "Midnight blue",
+      "CRT green"
+    ]
+  },
+  "kaleidoscopeLabel": {
+    "type": "label",
+    "value": "KALEIDOSCOPE BLOOM"
+  },
+  "kaleidoSymmetry": {
+    "type": "dropdown",
+    "value": 3,
+    "text": "Mirror symmetry",
+    "items": [
+      "6 segments",
+      "8 segments",
+      "10 segments",
+      "12 segments",
+      "16 segments"
+    ]
+  },
+  "kaleidoComplexity": {
+    "type": "slider",
+    "value": 68,
+    "min": 20,
+    "max": 100,
+    "tick": 4,
+    "text": "Facet complexity"
+  },
+  "kaleidoZoom": {
+    "type": "slider",
+    "value": 100,
+    "min": 60,
+    "max": 160,
+    "tick": 5,
+    "text": "Pattern zoom"
+  },
+  "kaleidoRotation": {
+    "type": "slider",
+    "value": 45,
+    "min": -100,
+    "max": 100,
+    "tick": 5,
+    "text": "Rotation / direction"
+  },
+  "albumArtReactive": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Album-art-reactive background / tint"
+  },
+  "albumArtStrength": {
+    "type": "slider",
+    "value": 42,
+    "min": 0,
+    "max": 100,
+    "tick": 2,
+    "text": "Album art influence"
+  },
+  "experienceLabel": {
+    "type": "label",
+    "value": "INTERACTION & AMBIENCE"
+  },
+  "interactionEnabled": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Pointer-reactive visuals",
+    "help": "Move the pointer to steer supported visualizers; press or click to send an impulse through Gravity Garden. Wallpaper mouse input must be enabled in Lively."
+  },
+  "interactionMode": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Pointer behavior",
+    "items": [
+      "Attract / bend",
+      "Repel / scatter",
+      "Orbit / swirl"
+    ]
+  },
+  "interactionStrength": {
+    "type": "slider",
+    "value": 80,
+    "min": 0,
+    "max": 150,
+    "tick": 5,
+    "text": "Pointer influence"
+  },
+  "ambientMotion": {
+    "type": "slider",
+    "value": 55,
+    "min": 0,
+    "max": 100,
+    "tick": 5,
+    "text": "Ambient motion level"
+  },
+  "shaderQuality": {
+    "type": "dropdown",
+    "value": 1,
+    "text": "GPU render quality",
+    "items": [
+      "Eco",
+      "Balanced",
+      "High"
+    ],
+    "help": "Scales the render resolution of every visualizer, plus the internal buffer of the WebGL scenes. Eco lowers GPU and power use the most and is the softest; High is sharpest. Balanced is recommended for wallpaper use."
+  },
+  "beatFlash": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Beat flash / strobe (photosensitive warning)"
+  },
+  "beatFlashStrength": {
+    "type": "slider",
+    "value": 28,
+    "min": 0,
+    "max": 60,
+    "tick": 2,
+    "text": "Beat flash intensity"
+  },
+  "crtOverlay": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Faux CRT overlay"
+  },
+  "scanlineStrength": {
+    "type": "slider",
+    "value": 46,
+    "min": 0,
+    "max": 100,
+    "tick": 2,
+    "text": "Scanline strength"
+  },
+  "vignette": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Edge vignette"
+  },
+  "showTrack": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Show Now Playing card"
+  },
+  "showThemeName": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Show sub-theme name"
+  },
+  "idleMotion": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Subtle motion when silent"
+  },
+  "autoCycle": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Auto-cycle visualizers"
+  },
+  "cycleSeconds": {
+    "type": "slider",
+    "value": 20,
+    "min": 5,
+    "max": 60,
+    "tick": 1,
+    "text": "Cycle interval (seconds)"
+  },
+  "uiPosition": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Now Playing position",
+    "items": [
+      "Bottom left",
+      "Bottom right",
+      "Top left",
+      "Top right"
+    ]
+  },
+  "fps": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Frame-rate cap",
+    "items": [
+      "60 FPS",
+      "30 FPS"
+    ]
+  }
+}

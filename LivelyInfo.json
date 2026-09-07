@@ -1,0 +1,28 @@
+{
+  "AppVersion": "2.2.1.0",
+  "Title": "JuqBawx - Music Visualizer",
+  "Thumbnail": "thumbnail.png",
+  "Preview": null,
+  "Desc": "36 system-audio reactive visualizers, from Winamp-era scopes to MilkDrop feedback tunnels to WebGL fragment shaders with automatic Canvas fallbacks. Album-art palettes, pointer interaction, ambient modes, themed packs, per-visualizer profiles, and a full-screen Now Playing readout built from the Windows media session.",
+  "Author": "raystanza",
+  "License": "MIT",
+  "Contact": "raystanza.dev@gmail.com",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": "--audio --system-nowplaying",
+  "Tags": [
+    "audio",
+    "music",
+    "visualizer",
+    "shader",
+    "procedural",
+    "ambient",
+    "interactive",
+    "album-art",
+    "winamp",
+    "milkdrop",
+    "retro",
+    "lively"
+  ],
+  "IsAbsolutePath": false
+}

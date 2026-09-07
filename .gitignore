@@ -1,0 +1,17 @@
+# Build output
+/dist/
+*.zip
+/dev/
+
+# Editor settings
+.idea/
+.vscode/
+*.swp
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log

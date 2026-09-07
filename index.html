@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="color-scheme" content="dark" />
+  <title>JuqBawx — Music Visualizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="visualizer" aria-label="Audio visualizer"></canvas>
+
+  <section id="nowPlaying" class="now-playing hidden" aria-live="polite">
+    <div class="art-shell">
+      <img id="albumArt" alt="" />
+      <div id="artFallback" class="art-fallback">♪</div>
+    </div>
+    <div class="track-copy">
+      <div id="trackTitle" class="track-title">Nothing playing</div>
+      <div id="trackArtist" class="track-artist">JuqBawx Visualizer</div>
+      <div id="trackAlbum" class="track-album"></div>
+    </div>
+  </section>
+
+  <section id="mediaDossier" class="media-dossier" aria-live="polite" aria-label="Detailed now playing information">
+    <div class="dossier-aura" aria-hidden="true"></div>
+    <div class="dossier-frame">
+      <header class="dossier-masthead">
+        <div class="dossier-status">
+          <span class="dossier-status-orb" aria-hidden="true"></span>
+          <span id="dossierStateLabel">Awaiting media</span>
+        </div>
+        <div class="dossier-session">
+          <span id="dossierPlaybackBadge" class="dossier-playback-badge">MEDIA</span>
+          <span>Windows media session</span>
+        </div>
+      </header>
+
+      <div class="dossier-content">
+        <figure class="dossier-artwork">
+          <div class="dossier-artwork-frame">
+            <img id="dossierAlbumArt" alt="" />
+            <div id="dossierArtFallback" class="dossier-art-fallback" aria-hidden="true">
+              <span>♪</span>
+              <small>Artwork pending</small>
+            </div>
+            <div class="dossier-art-index"><span>NOW</span><span>PLAYING</span></div>
+          </div>
+          <figcaption id="dossierArtworkState">No artwork supplied by the player</figcaption>
+        </figure>
+
+        <div class="dossier-copy">
+          <p class="dossier-eyebrow">Current media</p>
+          <h1 id="dossierTitle">Nothing playing</h1>
+          <p id="dossierArtist" class="dossier-artist">Start audio or video to populate this screen</p>
+          <p class="dossier-collection"><span>From</span> <strong id="dossierAlbum">No collection available</strong></p>
+
+          <div class="dossier-rule" aria-hidden="true"><span></span></div>
+
+          <section class="dossier-metadata" aria-label="Available media metadata">
+            <div class="dossier-field">
+              <span>Album artist</span>
+              <strong id="dossierAlbumArtist">Not supplied</strong>
+            </div>
+            <div class="dossier-field">
+              <span>Track position</span>
+              <strong id="dossierTrackNumber">Not supplied</strong>
+            </div>
+            <div class="dossier-field">
+              <span>Genre</span>
+              <strong id="dossierGenres">Not supplied</strong>
+            </div>
+            <div class="dossier-field">
+              <span>Media type</span>
+              <strong id="dossierPlaybackType">Not supplied</strong>
+            </div>
+            <div class="dossier-field dossier-field-wide">
+              <span>Subtitle / episode detail</span>
+              <strong id="dossierSubtitle">Not supplied</strong>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <footer class="dossier-footer">
+        <span>Media dossier <b>№ 037</b></span>
+        <span id="dossierAvailability">Waiting for a Windows-compatible media player</span>
+        <span>Local session · no cloud lookup</span>
+      </footer>
+    </div>
+  </section>
+
+  <div id="themeBadge" class="theme-badge">NEON SPECTRUM</div>
+  <!-- Core runtime. Order matters: namespace first, frame last. -->
+  <script src="src/core/namespace.js"></script>
+  <script src="src/core/dom.js"></script>
+  <script src="src/core/state.js"></script>
+  <script src="src/core/profiles.js"></script>
+  <script src="src/core/color.js"></script>
+  <script src="src/core/audio.js"></script>
+  <script src="src/core/gpu.js"></script>
+  <script src="src/core/fields.js"></script>
+  <script src="src/core/canvas.js"></script>
+  <script src="src/core/screenfx.js"></script>
+  <script src="src/core/nowplaying.js"></script>
+  <script src="src/core/properties.js"></script>
+  <script src="src/core/frame.js"></script>
+
+  <!-- Visualizers, in Lively dropdown order. After changing this list, run
+       node tools/sync-properties.cjs to update LivelyProperties.json. -->
+  <script src="src/visualizers/neon-spectrum.js"></script>
+  <script src="src/visualizers/mirrored-horizon.js"></script>
+  <script src="src/visualizers/radial-bloom.js"></script>
+  <script src="src/visualizers/particle-constellation.js"></script>
+  <script src="src/visualizers/aurora-wave.js"></script>
+  <script src="src/visualizers/winamp-classic-spectrum.js"></script>
+  <script src="src/visualizers/winamp-classic-oscilloscope.js"></script>
+  <script src="src/visualizers/plasma-tunnel.js"></script>
+  <script src="src/visualizers/avs-laser-grid.js"></script>
+  <script src="src/visualizers/retro-vu-towers.js"></script>
+  <script src="src/visualizers/polar-oscilloscope.js"></script>
+  <script src="src/visualizers/starlight-rings.js"></script>
+  <script src="src/visualizers/prism-scope.js"></script>
+  <script src="src/visualizers/analog-needle-deck.js"></script>
+  <script src="src/visualizers/ribbon-helix.js"></script>
+  <script src="src/visualizers/skyline-pulse.js"></script>
+  <script src="src/visualizers/orbiting-orbs.js"></script>
+  <script src="src/visualizers/kaleidoscope-bloom.js"></script>
+  <script src="src/visualizers/feedback-tunnel.js"></script>
+  <script src="src/visualizers/dot-matrix-analyzer.js"></script>
+  <script src="src/visualizers/wireframe-reactor.js"></script>
+  <script src="src/visualizers/crt-scope-deluxe.js"></script>
+  <script src="src/visualizers/milkdrop-petals.js"></script>
+  <script src="src/visualizers/winamp-tri-band-analyzer.js"></script>
+  <script src="src/visualizers/winamp-dot-scope.js"></script>
+  <script src="src/visualizers/milkdrop-spiral-feedback.js"></script>
+  <script src="src/visualizers/milkdrop-fractal-flower.js"></script>
+  <script src="src/visualizers/cassette-deck.js"></script>
+  <script src="src/visualizers/galactic-equalizer.js"></script>
+  <script src="src/visualizers/liquid-chrome.js"></script>
+  <script src="src/visualizers/spectral-terrain.js"></script>
+  <script src="src/visualizers/album-mosaic.js"></script>
+  <script src="src/visualizers/gravity-garden.js"></script>
+  <script src="src/visualizers/bioluminescent-tide.js"></script>
+  <script src="src/visualizers/polyhedral-bloom.js"></script>
+  <script src="src/visualizers/now-playing-dossier.js"></script>
+
+  <script src="src/boot.js"></script>
+</body>
+</html>
